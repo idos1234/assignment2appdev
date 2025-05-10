@@ -83,6 +83,14 @@ a:hover {
 
 #form #password{
     width: 100%;
+    border: 1px solid white;
+    outline: none;
+}
+
+#form #password:focus{
+    width: 100%;
+    outline: 2px solid black;
+    border-radius: 2px;
 }
 
 #form #visibility{   

@@ -19,6 +19,7 @@ function Submit() {
         document.getElementById("email_phonenumber").style.backgroundImage = ""
         if(password != "") {
             document.getElementById("passwordError").innerHTML = ""
+            window.location.href = "./homePage.html"
         } else {
             document.getElementById("passwordError").innerHTML = "Password is required."
         }
