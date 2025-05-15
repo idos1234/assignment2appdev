@@ -55,21 +55,59 @@ a:hover {
     color: rgb(153, 153, 153);
 }
 
-#email_phonenumber{
+#form #email_phonenumber{
     width: 90%;
     height: 50px;
     background-color: white;
     border: 1px solid lightgray;
-    border-radius: 5px;  
+    border-radius: 5px; 
+    padding: 12px 20px; 
+    font-size: 16px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 50%;
 }
-#password{
+
+#form #passwordBox{
+    display: grid;
+    grid-template-columns: auto 20px;
+    gap: 10px;
     width: 90%;
     height: 50px;
+    margin: auto;
+    padding: 12px 20px; 
     background-color: white;
     border: 1px solid lightgray;
-    border-radius: 5px;
-    
+    border-radius: 5px; 
+    font-size: 16px;
 }
+
+#form #password{
+    width: 100%;
+    border: 1px solid white;
+    outline: none;
+}
+
+#form #password:focus{
+    width: 100%;
+    outline: 2px solid black;
+    border-radius: 2px;
+}
+
+#form #visibility{   
+    cursor: pointer;
+    visibility: hidden;
+}
+
+#form #emailError, #form #passwordError {
+    display: flex;
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 5%;
+    padding: 5px 0;
+}
+
 #login_button{
     width: 90%;
     height: 50px;
