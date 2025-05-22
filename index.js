@@ -53,3 +53,42 @@ function deletePost(button, event) {
     postClass.remove();
   }
 }
+function Like(element, outerDiv) {
+    var like_button = element.querySelector("#like_button");
+    var likes = outerDiv.querySelector("#likes");
+    var text = element.querySelector("span")
+    if (like_button.style.backgroundPosition === "0px -798px") {
+        //liked
+        like_button.style.backgroundPosition = "0px -735px";
+        text.style.color = "#0064d1"
+        likes.innerHTML = (parseInt(likes.textContent) + 1).toString();
+    } else {
+        //unliked
+        like_button.style.backgroundPosition = "0px -798px";
+        text.style.color = "black"
+        likes.innerHTML = (parseInt(likes.textContent) - 1).toString();
+    }
+
+    like_button.classList.add("pop");
+    setTimeout(() => {
+        like_button.classList.remove("pop");
+    }, 300);
+}
+
+function onScroll() {
+    var mybutton = document.getElementById("back_to_top_button");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.classList.add("show");
+        mybutton.classList.remove("hide");
+    } else {
+        mybutton.classList.add("hide");
+        mybutton.classList.remove("show");
+    }
+}
+
+function backToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
