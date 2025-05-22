@@ -68,3 +68,21 @@ function Like(element, outerDiv) {
         like_button.classList.remove("pop");
     }, 300);
 }
+
+function onScroll() {
+    var mybutton = document.getElementById("back_to_top_button");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.classList.add("show");
+        mybutton.classList.remove("hide");
+    } else {
+        mybutton.classList.add("hide");
+        mybutton.classList.remove("show");
+    }
+}
+
+function backToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
