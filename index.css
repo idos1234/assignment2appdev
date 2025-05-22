@@ -683,6 +683,7 @@ a:hover {
     text-decoration: none;
     border-radius: 8px;
     gap: 8px;
+    cursor: pointer;
 }
 
 .post #lower_part #bottom span {
@@ -742,4 +743,21 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+/*animations*/
+@keyframes pop {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      transform: scale(1.4) rotate(-30deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+}
+
+.pop {
+  animation: pop 0.3s ease;
 }
