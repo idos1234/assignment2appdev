@@ -53,6 +53,7 @@ function deletePost(button, event) {
     postClass.remove();
   }
 }
+
 function Like(element, outerDiv) {
     var like_button = element.querySelector("#like_button");
     var likes = outerDiv.querySelector("#likes");
