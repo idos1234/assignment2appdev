@@ -48,7 +48,7 @@ function changeVisibility() {
 }
 function deletePost(button, event) {
   event.preventDefault();
-  const postClass = button.closest("#post2");
+  const postClass = button.closest("#post_item");
   if (postClass) {
     postClass.remove();
   }
@@ -86,6 +86,52 @@ function onScroll() {
         mybutton.classList.remove("show");
     }
 }
+
+function search() {
+    var input, filter, ul, li, text, i, txtValue;
+    input = document.getElementById("search_input");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("main_content");
+    li = ul.querySelectorAll(".post_item");
+    for (i = 0; i < li.length; i++) {
+        text = li[i].querySelector("#text").querySelector("p");
+        txtValue = text.textContent || text.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function toggleCommentInput(button) {
+    const lowerPart = button.closest('#lower_part');
+    const inputDiv = lowerPart.querySelector('#comment_input');
+
+    if (inputDiv.style.display === "none" || inputDiv.style.display === "") {
+        inputDiv.style.display = "block";
+    } else {
+        inputDiv.style.display = "none";
+    }
+}
+
+function onWriteComment(input) {
+    const lowerPart = input.closest('#lower_part');
+    const comment = lowerPart.querySelector('#comment');
+
+    if (input.value !== "") {
+        comment.innerHTML = '<span>User writes a comment...</span>';
+        comment.onclick = null; // disable onclick
+    } else {
+        comment.innerHTML = `
+            <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+            <span>Comment</span>`;
+        comment.onclick = function () {
+            toggleCommentInput(this);
+        };
+    }
+}
+
 
 function backToTop() {
     window.scrollTo({

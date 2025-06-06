@@ -535,8 +535,11 @@ a:hover {
 }
 
 #create_story #create_button {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
+    height: 40px;
     font-size: 35px;
     border-radius: 50%;
     background-color: #1876f21c;
