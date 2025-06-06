@@ -429,6 +429,12 @@ a:hover {
     height: 24px;
 }
 
+.top_menu #lightmode_icon_post {
+    height: fit-content;
+    width: fit-content;
+    cursor: pointer;
+}
+
 .top_menu #account img{
     width: 40px;
     height: 40px;
@@ -542,6 +548,41 @@ a:hover {
     background-color: #1876f21c;
     color: #1877f2;
 }
+
+#storyLabel ,#storyTitle{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+#postButton {
+    width: 100%;
+    height: 40px;
+    background-color: #1877f2;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+}
+
+#cancelButton {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: #f2f4f7;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+}
+
 
 /*post*/
 
@@ -798,6 +839,43 @@ html {
     }
 }
 
+
+
 .pop {
   animation: pop 0.3s ease;
+}
+
+
+/* Dark mode overrides */
+html.dark body {
+    background-color: #18191a;
+    color: #e4e6eb;
+}
+
+html.dark .top_menu,
+html.dark .sidebar,
+html.dark .right_bar,
+html.dark #whats_on_your_mind #question,
+html.dark #main_content li,
+html.dark .card {
+    background-color: #242526 !important;
+    color: #e4e6eb !important;
+}
+
+html.dark .top_menu #search,
+html.dark .sidebar div div:hover:not(#menu_links),
+html.dark .right_bar #c_h #options svg:hover,
+html.dark .right_bar a:hover,
+html.dark #whats_on_your_mind #options a:hover,
+html.dark #create_story a:hover,
+html.dark .post #options a:hover {
+    background-color: #3a3b3c !important;
+}
+
+html.dark input[type=text],
+html.dark input,
+html.dark textarea {
+    background-color: #3a3b3c;
+    color: #e4e6eb;
+    border: 1px solid #555;
 }
