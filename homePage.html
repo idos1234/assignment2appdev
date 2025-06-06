@@ -1,7 +1,7 @@
 <!--Maor-Shopen-333035087 Ido-Suliman-332883958-->
 
 <!DOCTYPE html>
-<html>
+<html class="light">
     <head>
         <link rel="stylesheet" href="index.css">
         <title>Facebook</title>
@@ -29,6 +29,8 @@
                 </div>
             </div>
             <div id="right">
+                <button id="mode-toggle" style="padding: 5px 10px; margin: 5px; cursor: pointer; border-radius: 5px;">🌓</button>
+
                 <a href="">Find friends</a>
                 <a href=""><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z"/></svg></a>
                 <a href=""><img id="messanger" src="https://cdn-icons-png.flaticon.com/128/1617/1617469.png"></a>
@@ -609,7 +611,29 @@
 
 
         <button onclick="backToTop()" id="back_to_top_button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M444-192v-438L243-429l-51-51 288-288 288 288-51 51-201-201v438h-72Z"/></svg></button>
-    </body>
+    
+<script>
+  
+</script>
+
+
+<!-- Create Story Modal -->
+<div id="storyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background-color:var(--bg-color); color:var(--text-color); padding:20px; border-radius:10px; width:400px; position:relative;">
+    <h2 id="storyTitle">Create Story</h2>
+    <form id="storyForm">
+      <label id="storyLabel" for="storyText"><b>What's on your mind?</b></label><br>
+      <textarea id="storyText" name="storyText" rows="4" style="width:100%; margin:10px 0;"></textarea><br>
+      <button id="postButton" type="submit" style="margin-right:10px;">Post</button>
+      <button id="cancelButton" type="button" onclick="closeStoryModal()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+</body>
 
         <script src="index.js">
         </script>

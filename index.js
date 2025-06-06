@@ -139,3 +139,45 @@ function backToTop() {
         behavior: 'smooth'
     });
 }
+// Open story modal
+  document.querySelectorAll('#create_story a').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('storyModal').style.display = 'flex';
+    });
+  });
+
+  function closeStoryModal() {
+    document.getElementById('storyModal').style.display = 'none';
+  }
+
+  // Handle story submission
+  document.getElementById('storyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const text = document.getElementById('storyText').value;
+    if (text.trim()) {
+      alert('Story posted: ' + text);
+      document.getElementById('storyText').value = '';
+      closeStoryModal();
+    } else {
+      alert('Please write something!');
+    }
+  });
+  const toggleButton = document.getElementById('mode-toggle');
+  const html = document.documentElement;
+
+  // Load saved theme
+  if (localStorage.getItem('theme') === 'dark') {
+    html.classList.remove('light');
+    html.classList.add('dark');
+  }
+
+  toggleButton.addEventListener('click', () => {
+    if (html.classList.contains('light')) {
+      html.classList.replace('light', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.classList.replace('dark', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  });
