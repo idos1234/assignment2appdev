@@ -48,7 +48,7 @@ function changeVisibility() {
 }
 function deletePost(button, event) {
   event.preventDefault();
-  const postClass = button.closest("#post_item");
+  const postClass = button.closest("li");
   if (postClass) {
     postClass.remove();
   }
@@ -133,11 +133,13 @@ function onWriteComment(input) {
 }
 
 function sendComment(button) {
-  const comment = button.closest("#add_comment").querySelector("#comment_input").value;
+  const comment = button.closest("#add_comment").querySelector("#comment_input");
   const listOfComments = button.closest("#lower_part").querySelector("#comments");
   var newComment = document.createElement("li");
-  newComment.appendChild(document.createTextNode(comment));
+  newComment.appendChild(document.createTextNode(comment.value));
   listOfComments.appendChild(newComment);
+  comment.value = "";
+  onWriteComment(comment);
 
   //incre the number of comments by one
   const commentText = button.closest("#lower_part").querySelector('#right').querySelector('a');
@@ -163,30 +165,7 @@ function backToTop() {
         behavior: 'smooth'
     });
 }
-// Open story modal
-  document.querySelectorAll('#create_story a').forEach(el => {
-    el.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('storyModal').style.display = 'flex';
-    });
-  });
 
-  function closeStoryModal() {
-    document.getElementById('storyModal').style.display = 'none';
-  }
-
-  // Handle story submission
-  document.getElementById('storyForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const text = document.getElementById('storyText').value;
-    if (text.trim()) {
-      alert('Story posted: ' + text);
-      document.getElementById('storyText').value = '';
-      closeStoryModal();
-    } else {
-      alert('Please write something!');
-    }
-  });
   const toggleButton = document.getElementById('mode-toggle');
   const html = document.documentElement;
 
@@ -206,10 +185,20 @@ function backToTop() {
     }
   });
 
-  function closeStoryModal() {
-  document.getElementById('storyModal').style.display = 'none';
-}
 
+  // Open story modal
+  document.querySelectorAll('#create_story a').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('storyModal').style.display = 'flex';
+    });
+  });
+
+  function closeStoryModal() {
+    document.getElementById('storyModal').style.display = 'none';
+  }
+
+//create new story
 document.querySelectorAll('#create_story a').forEach(el => {
   el.addEventListener('click', function(e) {
     e.preventDefault();
@@ -224,7 +213,7 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
   const fileInput = document.getElementById('storyImageInput');
   const file = fileInput.files[0];
 
-  if (!text && !file) {
+  if (text.trim() == "" && file == undefined) {
     alert("Please write something or upload an image.");
     return;
   }
@@ -235,50 +224,93 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
 
   const reader = new FileReader();
   reader.onload = function(e) {
+
     li.innerHTML = `
-      <div class="post" style="width: 100%; max-width: 680px; margin: auto; display: flex; flex-direction: column; overflow: hidden;">
-        <div id="upper_part">
-          <div id="details">
-            <a href=""><div id="username">You</div></a>
-            <a href=""><div><span id="time_since_post">Just now</span></div></a>
-            <a href=""><img id="pfp" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"></a>
-          </div>
-          <div id="options">
-            <a href=""><svg id="x_icon_post" onclick="deletePost(this, event)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#65686c"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
-          </div>
-        </div>
-        <div id="text" style="padding: 10px; font-size: 16px;"><p>${text}</p></div>
-        ${file ? `<div id="image" style="width: 100%; max-height: 510px; overflow: hidden;"><img src="${e.target.result}" style="width: 100%; height: auto; display: block; object-fit: cover; border-radius: 8px;"></div>` : ''}
-        <div id="lower_part">
-          <div id="top">
-            <div id="left">
-              <a id="likes">0</a>
-            </div>
-            <div id="right">
-              <a>0 comments</a>
-              <a>0 shares</a>
-            </div>
-          </div>
-          <div class="line"></div>
-          <div id="bottom">
-            <a onclick="Like(this, this.closest('#lower_part'))">
-              <i id="like_button" style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
-              <span>Like</span>
-            </a>
-            <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id="comment">
-              <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
-              <span>Comment</span>
-            </a>
-            <a href="">
-              <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -924px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
-              <span>Share</span>
-            </a>
-          </div>
-          <div id="comment_input" style="display: none; padding: 10px;">
-            <input onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..." style="width: 95%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;" />
-          </div>
-        </div>
-      </div>
+    <div class="post">
+                    <div style = "width:100%">
+                        <div id="upper_part">
+                            <div id="details">
+                                <a href="">
+                                    <div id="username">You</div>
+                                </a>
+                        
+                                <a href="">
+                                    <div>
+                                        <span id="time_since_post">Now</span>
+                                    </div>
+                                </a>
+                        
+                                <a href="">
+                                    <img id="pfp" src="https://scontent.fsdv1-2.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s40x40&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_ohc=ofqwNqiIaM8Q7kNvwFUiZb1&_nc_oc=AdlYD1gpKxC7Gn7MF664wsQvnitVTXxOmKITd2ML92EnkaMkkWNP0BDAKwksOKmVuNM&_nc_zt=24&_nc_ht=scontent.fsdv1-2.fna&oh=00_AfM_ft5ML1s63XjxSq5VAQScaJ5ElQqY2IGjONkXZ0X2jA&oe=686A71FA">
+                                </a>
+                            </div>
+                            <div id="options">
+                            
+                                <a href="">
+                                    <svg id="options_icon_post" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#65686c"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
+                                </a>
+                                <a id="x_icon_postb"href="" onclick="deletePost(this, event)">
+                                    <svg id="x_icon_post" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#65686c">
+                                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                    
+                        </div>
+                      
+                        <div id="text">
+                            <p>${text}</p>
+                        </div>
+
+                        ${file ? `
+                          <div id="image">
+                            <img src=${e.target.result}>
+                        </div>` 
+                          : 
+                          ``
+                        }
+
+                        <div id="lower_part">
+                            <div id="top">
+                                <div id="left">
+                                    <img src="data:image/svg+xml,%3Csvg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M16.0001 7.9996c0 4.418-3.5815 7.9996-7.9995 7.9996S.001 12.4176.001 7.9996 3.5825 0 8.0006 0C12.4186 0 16 3.5815 16 7.9996Z' fill='url(%23paint0_linear_15251_63610)'/%3E%3Cpath d='M16.0001 7.9996c0 4.418-3.5815 7.9996-7.9995 7.9996S.001 12.4176.001 7.9996 3.5825 0 8.0006 0C12.4186 0 16 3.5815 16 7.9996Z' fill='url(%23paint1_radial_15251_63610)'/%3E%3Cpath d='M16.0001 7.9996c0 4.418-3.5815 7.9996-7.9995 7.9996S.001 12.4176.001 7.9996 3.5825 0 8.0006 0C12.4186 0 16 3.5815 16 7.9996Z' fill='url(%23paint2_radial_15251_63610)' fill-opacity='.5'/%3E%3Cpath d='M7.3014 3.8662a.6974.6974 0 0 1 .6974-.6977c.6742 0 1.2207.5465 1.2207 1.2206v1.7464a.101.101 0 0 0 .101.101h1.7953c.992 0 1.7232.9273 1.4917 1.892l-.4572 1.9047a2.301 2.301 0 0 1-2.2374 1.764H6.9185a.5752.5752 0 0 1-.5752-.5752V7.7384c0-.4168.097-.8278.2834-1.2005l.2856-.5712a3.6878 3.6878 0 0 0 .3893-1.6509l-.0002-.4496ZM4.367 7a.767.767 0 0 0-.7669.767v3.2598a.767.767 0 0 0 .767.767h.767a.3835.3835 0 0 0 .3835-.3835V7.3835A.3835.3835 0 0 0 5.134 7h-.767Z' fill='%23fff'/%3E%3Cdefs%3E%3CradialGradient id='paint1_radial_15251_63610' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='rotate(90 .0005 8) scale(7.99958)'%3E%3Cstop offset='.5618' stop-color='%230866FF' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%230866FF' stop-opacity='.1'/%3E%3C/radialGradient%3E%3CradialGradient id='paint2_radial_15251_63610' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='rotate(45 -4.5257 10.9237) scale(10.1818)'%3E%3Cstop offset='.3143' stop-color='%2302ADFC'/%3E%3Cstop offset='1' stop-color='%2302ADFC' stop-opacity='0'/%3E%3C/radialGradient%3E%3ClinearGradient id='paint0_linear_15251_63610' x1='2.3989' y1='2.3999' x2='13.5983' y2='13.5993' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%2302ADFC'/%3E%3Cstop offset='.5' stop-color='%230866FF'/%3E%3Cstop offset='1' stop-color='%232B7EFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+                                    <img src="data:image/svg+xml,%3Csvg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg clip-path='url(%23clip0_15251_63610)'%3E%3Cpath d='M15.9963 8c0 4.4179-3.5811 7.9993-7.9986 7.9993-4.4176 0-7.9987-3.5814-7.9987-7.9992 0-4.4179 3.5811-7.9992 7.9987-7.9992 4.4175 0 7.9986 3.5813 7.9986 7.9992Z' fill='url(%23paint0_linear_15251_63610)'/%3E%3Cpath d='M15.9973 7.9992c0 4.4178-3.5811 7.9992-7.9987 7.9992C3.5811 15.9984 0 12.417 0 7.9992S3.5811 0 7.9986 0c4.4176 0 7.9987 3.5814 7.9987 7.9992Z' fill='url(%23paint1_radial_15251_63610)'/%3E%3Cpath d='M7.9996 5.9081c-.3528-.8845-1.1936-1.507-2.1748-1.507-1.4323 0-2.4254 1.328-2.4254 2.6797 0 2.2718 2.3938 4.0094 4.0816 5.1589.3168.2157.7205.2157 1.0373 0 1.6878-1.1495 4.0815-2.8871 4.0815-5.159 0-1.3517-.993-2.6796-2.4254-2.6796-.9811 0-1.822.6225-2.1748 1.507Z' fill='%23fff'/%3E%3C/g%3E%3Cdefs%3E%3CradialGradient id='paint1_radial_15251_63610' cx='0' cy='0' r='1' gradientUnits='userSpaceOnUse' gradientTransform='matrix(0 7.9992 -7.99863 0 7.9986 7.9992)'%3E%3Cstop offset='.5637' stop-color='%23E11731' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23E11731' stop-opacity='.1'/%3E%3C/radialGradient%3E%3ClinearGradient id='paint0_linear_15251_63610' x1='2.3986' y1='2.4007' x2='13.5975' y2='13.5993' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23FF74AE'/%3E%3Cstop offset='.5001' stop-color='%23FA2E3E'/%3E%3Cstop offset='1' stop-color='%23FF5758'/%3E%3C/linearGradient%3E%3CclipPath id='clip0_15251_63610'%3E%3Cpath fill='%23fff' d='M-.001.0009h15.9992v15.9984H-.001z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E">
+                                    <a id="likes">0</a>
+                                </div>
+
+                                <div id="right">
+                                    <a onclick="seeComments(this)">See 0 comments</a>
+                                    <a>0 shares</a>
+                                </div>
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div id="bottom">
+                                <a onclick="Like(this, this.closest('#lower_part'))">
+                                    <i id="like_button" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+                                    <span>Like</span>
+                                </a>
+                                <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id = "comment">
+                                    <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+                                    <span>Comment</span>
+                                </a>
+                                <a href="">
+                                    <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -924px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+                                    <span>Share</span>
+                                </a>
+                            </div>
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
+                            </div>
+
+                            <ul id = "comments">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
     `;
 
     postList.appendChild(li);
