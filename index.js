@@ -106,10 +106,10 @@ function search() {
 
 function toggleCommentInput(button) {
     const lowerPart = button.closest('#lower_part');
-    const inputDiv = lowerPart.querySelector('#comment_input');
+    const inputDiv = lowerPart.querySelector('#add_comment');
 
     if (inputDiv.style.display === "none" || inputDiv.style.display === "") {
-        inputDiv.style.display = "block";
+        inputDiv.style.display = "grid";
     } else {
         inputDiv.style.display = "none";
     }
@@ -120,7 +120,7 @@ function onWriteComment(input) {
     const comment = lowerPart.querySelector('#comment');
 
     if (input.value !== "") {
-        comment.innerHTML = '<span>User writes a comment...</span>';
+        comment.innerHTML = '<span>User is writing comment</span>';
         comment.onclick = null; // disable onclick
     } else {
         comment.innerHTML = `
@@ -132,6 +132,30 @@ function onWriteComment(input) {
     }
 }
 
+function sendComment(button) {
+  const comment = button.closest("#add_comment").querySelector("#comment_input").value;
+  const listOfComments = button.closest("#lower_part").querySelector("#comments");
+  var newComment = document.createElement("li");
+  newComment.appendChild(document.createTextNode(comment));
+  listOfComments.appendChild(newComment);
+
+  //incre the number of comments by one
+  const commentText = button.closest("#lower_part").querySelector('#right').querySelector('a');
+  let text = commentText.textContent;
+  let updatedText = text.replace(/(\d+)/, (match) => parseInt(match) + 1);
+
+  commentText.textContent = updatedText;
+
+}
+
+function seeComments(element) {
+  var comments = element.closest("#lower_part").querySelector("#comments");
+  if(comments.style.display == 'block') {
+    comments.style.display = 'none';
+  } else {
+    comments.style.display = 'block';
+  }
+}
 
 function backToTop() {
     window.scrollTo({

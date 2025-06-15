@@ -268,7 +268,7 @@
                                 </div>
 
                                 <div id="right">
-                                    <a>23 comments</a>
+                                    <a onclick="seeComments(this)">See 0 comments</a>
                                     <a>37 shares</a>
                                 </div>
                             </div>
@@ -290,9 +290,14 @@
                                 </a>
                             </div>
 
-                            <div id="comment_input" style="display: none; padding: 10px;">
-                                <input onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..." style="width: 95%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;" />
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
                             </div>
+
+                            <ul id = "comments">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -347,7 +352,7 @@
                                 </div>
 
                                 <div id="right">
-                                    <a>642 comments</a>
+                                    <a onclick="seeComments(this)">See 0 comments</a>
                                     <a>210 shares</a>
                                 </div>
                             </div>
@@ -359,7 +364,7 @@
                                     <i id="like_button" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Like</span>
                                 </a>
-                                <a href="">
+                                <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id = "comment">
                                     <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Comment</span>
                                 </a>
@@ -368,6 +373,14 @@
                                     <span>Share</span>
                                 </a>
                             </div>
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
+                            </div>
+
+                            <ul id = "comments">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -422,7 +435,7 @@
                                 </div>
 
                                 <div id="right">
-                                    <a>239 comments</a>
+                                    <a onclick="seeComments(this)">See 0 comments</a>
                                     <a>114 shares</a>
                                 </div>
                             </div>
@@ -434,7 +447,7 @@
                                     <i id="like_button" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Like</span>
                                 </a>
-                                <a href="">
+                                <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id = "comment">
                                     <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Comment</span>
                                 </a>
@@ -443,6 +456,14 @@
                                     <span>Share</span>
                                 </a>
                             </div>
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
+                            </div>
+
+                            <ul id = "comments">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -499,7 +520,7 @@
                                 </div>
 
                                 <div id="right">
-                                    <a>56 comments</a>
+                                    <a onclick="seeComments(this)">See 0 comments</a>
                                     <a>29 shares</a>
                                 </div>
                             </div>
@@ -511,7 +532,7 @@
                                     <i id="like_button" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Like</span>
                                 </a>
-                                <a href="">
+                                <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id = "comment">
                                     <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Comment</span>
                                 </a>
@@ -520,6 +541,14 @@
                                     <span>Share</span>
                                 </a>
                             </div>
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
+                            </div>
+
+                            <ul id = "comments">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -574,7 +603,7 @@
                                 </div>
 
                                 <div id="right">
-                                    <a>1.1k comments</a>
+                                    <a onclick="seeComments(this)">See 0 comments</a>
                                     <a>1.3K shares</a>
                                 </div>
                             </div>
@@ -586,7 +615,7 @@
                                     <i id="like_button" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Like</span>
                                 </a>
-                                <a href="">
+                                <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id = "comment">
                                     <i style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png&quot;); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
                                     <span>Comment</span>
                                 </a>
@@ -595,6 +624,14 @@
                                     <span>Share</span>
                                 </a>
                             </div>
+                            <div id="add_comment">
+                                <input id="comment_input" onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..."/>
+                                <button id="send_comment" onclick="sendComment(this)">Send comment</button>
+                            </div>
+
+                            <ul id = "comments">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -612,28 +649,20 @@
 
         <button onclick="backToTop()" id="back_to_top_button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M444-192v-438L243-429l-51-51 288-288 288 288-51 51-201-201v438h-72Z"/></svg></button>
     
-<script>
-  
-</script>
+        <!-- Create Story Modal -->
+        <div id="storyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background-color:var(--bg-color); color:var(--text-color); padding:20px; border-radius:10px; width:400px; position:relative;">
+            <h2 id="storyTitle">Create Story</h2>
+            <form id="storyForm">
+            <label id="storyLabel" for="storyText"><b>What's on your mind?</b></label><br>
+            <textarea id="storyText" name="storyText" rows="4" style="width:100%; margin:10px 0;"></textarea><br>
+            <button id="postButton" type="submit" style="margin-right:10px;">Post</button>
+            <button id="cancelButton" type="button" onclick="closeStoryModal()">Cancel</button>
+            </form>
+        </div>
+        </div>
 
-
-<!-- Create Story Modal -->
-<div id="storyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-  <div style="background-color:var(--bg-color); color:var(--text-color); padding:20px; border-radius:10px; width:400px; position:relative;">
-    <h2 id="storyTitle">Create Story</h2>
-    <form id="storyForm">
-      <label id="storyLabel" for="storyText"><b>What's on your mind?</b></label><br>
-      <textarea id="storyText" name="storyText" rows="4" style="width:100%; margin:10px 0;"></textarea><br>
-      <button id="postButton" type="submit" style="margin-right:10px;">Post</button>
-      <button id="cancelButton" type="button" onclick="closeStoryModal()">Cancel</button>
-    </form>
-  </div>
-</div>
-
-
-
-
-</body>
+    </body>
 
         <script src="index.js">
         </script>

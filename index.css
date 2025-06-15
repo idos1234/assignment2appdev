@@ -637,7 +637,6 @@ a:hover {
     font-size: 13px;
     font-weight: bold;
     color: #65686c;
-    
 }
 .post #pfp{
     margin-top: 6px;
@@ -735,6 +734,39 @@ a:hover {
     color: black;
 }
 
+.post #add_comment {
+    display: none;
+    grid-template-columns: 75% auto;
+    padding: 10px;
+    gap: 5px;
+}
+
+.post #add_comment input {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+.post #add_comment #send_comment {
+    background-color: #1877f2;
+    border-radius: 8px;
+    color: white;
+}
+
+.post #comments {
+    display: none;
+    list-style-type: none;
+}
+
+.post #comments li {
+    font-size: 15px;
+    width: 552px;
+    height: auto;
+    word-wrap: break-word;
+    box-shadow: 1px 1px 1px 0px solid rgba(0, 0, 0, 0.4);
+}
+
+/*new message*/
 #new_message {
     position: fixed;
     bottom: 10px;
