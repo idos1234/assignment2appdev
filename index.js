@@ -181,3 +181,90 @@ function backToTop() {
       localStorage.setItem('theme', 'light');
     }
   });
+
+  function closeStoryModal() {
+  document.getElementById('storyModal').style.display = 'none';
+}
+
+document.querySelectorAll('#create_story a').forEach(el => {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('storyModal').style.display = 'flex';
+  });
+});
+
+document.getElementById('storyForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const text = document.getElementById('storyText').value.trim();
+  const fileInput = document.getElementById('storyImageInput');
+  const file = fileInput.files[0];
+
+  if (!text && !file) {
+    alert("Please write something or upload an image.");
+    return;
+  }
+
+  const postList = document.getElementById('main_content');
+  const li = document.createElement('li');
+  li.className = 'post_item';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    li.innerHTML = `
+      <div class="post" style="width: 100%; max-width: 680px; margin: auto; display: flex; flex-direction: column; overflow: hidden;">
+        <div id="upper_part">
+          <div id="details">
+            <a href=""><div id="username">You</div></a>
+            <a href=""><div><span id="time_since_post">Just now</span></div></a>
+            <a href=""><img id="pfp" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"></a>
+          </div>
+          <div id="options">
+            <a href=""><svg id="x_icon_post" onclick="deletePost(this, event)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#65686c"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a>
+          </div>
+        </div>
+        <div id="text" style="padding: 10px; font-size: 16px;"><p>${text}</p></div>
+        ${file ? `<div id="image" style="width: 100%; max-height: 510px; overflow: hidden;"><img src="${e.target.result}" style="width: 100%; height: auto; display: block; object-fit: cover; border-radius: 8px;"></div>` : ''}
+        <div id="lower_part">
+          <div id="top">
+            <div id="left">
+              <a id="likes">0</a>
+            </div>
+            <div id="right">
+              <a>0 comments</a>
+              <a>0 shares</a>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div id="bottom">
+            <a onclick="Like(this, this.closest('#lower_part'))">
+              <i id="like_button" style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -798px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+              <span>Like</span>
+            </a>
+            <a href="javascript:void(0)" onclick="toggleCommentInput(this)" id="comment">
+              <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+              <span>Comment</span>
+            </a>
+            <a href="">
+              <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -924px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+              <span>Share</span>
+            </a>
+          </div>
+          <div id="comment_input" style="display: none; padding: 10px;">
+            <input onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..." style="width: 95%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;" />
+          </div>
+        </div>
+      </div>
+    `;
+
+    postList.appendChild(li);
+    closeStoryModal();
+    document.getElementById('storyForm').reset();
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    reader.onload({ target: { result: "" } });
+  }
+});
