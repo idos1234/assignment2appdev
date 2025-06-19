@@ -269,10 +269,11 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
               <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -588px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
               <span>Comment</span>
             </a>
-            <a href="">
+            <a href="" onclick="openShareModal(event)">
               <i style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v4/y6/r/olX2yf1iinG.png'); background-position: 0px -924px; background-size: auto; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
               <span>Share</span>
-            </a>
+            </a> 
+
           </div>
           <div id="comment_input" style="display: none; padding: 10px;">
             <input onkeyup="onWriteComment(this)" type="text" placeholder="Write a comment..." style="width: 95%; padding: 8px; border-radius: 8px; border: 1px solid #ccc;" />
@@ -292,3 +293,26 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
     reader.onload({ target: { result: "" } });
   }
 });
+
+function openShareModal(event) {
+  event.preventDefault();
+  document.getElementById('shareModal').style.display = 'flex';
+}
+
+function closeShareModal() {
+  document.getElementById('shareModal').style.display = 'none';
+}
+
+function sharePost() {
+  const shareText = document.getElementById('shareText').value;
+  if (!shareText.trim()) {
+    alert("You didn't write anything to share!");
+    return;
+  }
+
+  // Just simulate share feedback
+  alert("Post shared: " + shareText);
+  document.getElementById('shareText').value = '';
+  closeShareModal();
+}
+
