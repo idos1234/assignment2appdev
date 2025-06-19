@@ -1002,39 +1002,119 @@ html {
 }
 
 
-/* Dark mode overrides */
-html.dark body {
-    background-color: #18191a;
-    color: #e4e6eb;
+/* DARK MODE VARIABLES */
+html.dark {
+    --bg-color: #18191A;
+    --card-color: #2e2f30;
+    --text-color: #E4E6EB;
+    --subtext-color: #B0B3B8;
+    --border-color: #3A3B3C;
+    --hover-color: #3A3B3C;
+    --link-color: #ffffff;
 }
 
-html.dark .top_menu,
+/* General page elements */
+html.dark body,
 html.dark .sidebar,
 html.dark .right_bar,
-html.dark #whats_on_your_mind #question,
-html.dark #main_content li,
-html.dark .card {
-    background-color: #242526 !important;
-    color: #e4e6eb !important;
+html.dark .card,
+html.dark .top_menu,
+html.dark #storyModal > div {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
 }
 
-html.dark .top_menu #search,
+/* Main post container */
+html.dark #main_content li {
+    background-color: var(--card-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Links */
+html.dark a {
+    color: var(--link-color) !important;
+}
+
+/* Search input field */
+html.dark #search_input {
+    background-color: white !important;
+    color: black !important;
+}
+
+html.dark #search {
+    background-color: white !important;
+}
+
+/* Question input and story text input */
+html.dark #question,
+html.dark #storyText {
+    background-color: var(--card-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color);
+}
+
+/* Story form buttons */
+html.dark #storyForm button[type='button'] {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
+html.dark #storyForm button[type='submit'] {
+    background-color: #2374e1;
+    color: white;
+}
+
+html.dark #storyForm button[type='submit']:hover {
+    background-color: #145dbf;
+}
+
+/* Top menu buttons and hover */
+html.dark .top_menu #right a:not(#account),
 html.dark .sidebar div div:hover:not(#menu_links),
-html.dark .right_bar #c_h #options svg:hover,
 html.dark .right_bar a:hover,
-html.dark #whats_on_your_mind #options a:hover,
-html.dark #create_story a:hover,
-html.dark .post #options a:hover {
-    background-color: #3a3b3c !important;
+html.dark #dropdownFilterMenu {
+    background-color: var(--hover-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color);
 }
 
-html.dark input[type=text],
-html.dark input,
-html.dark textarea {
-    background-color: #3a3b3c;
-    color: #e4e6eb;
-    border: 1px solid #555;
+/* Lines and borders */
+html.dark .line {
+    border-bottom: 1px solid var(--border-color);
 }
+
+/* Inputs and textarea fields */
+html.dark input,
+html.dark textarea,
+html.dark .post #add_comment input {
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Dropdown menu */
+html.dark #dropdownFilterMenu {
+    background-color: var(--card-color);
+    color: var(--text-color);
+}
+
+/* Comments and buttons */
+html.dark .post #lower_part #bottom span,
+html.dark .post #lower_part #top #left a,
+html.dark .post #lower_part #top #right a {
+    color: var(--text-color);
+}
+
+/* Post header username and time */
+html.dark .post #username,
+html.dark .post #time_since_post {
+    color: var(--text-color) !important;
+}
+
+html.dark .menu-item.active {
+  background-color: var(--bg-color);
+}
+
 
 #shareModal {
   display: none;
