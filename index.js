@@ -104,6 +104,32 @@ function search() {
     }
 }
 
+
+//filter menu
+function toggleFilterMenu() {
+    const menu = document.getElementById("dropdownFilterMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+function selectFilter(type, button) {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+
+    button.className += " active";
+    if(type == "All") {
+        type = "";
+    }
+
+    ul = document.getElementById("main_content");
+    li = ul.querySelectorAll(".post_item");
+    for(var i = 0; i < li.length; ++i) {
+        li[i].style.display = "none";
+        if(li[i].className.indexOf(type) > -1) {
+            li[i].style.display = "";
+        }
+    }
+}
+
 function toggleCommentInput(button) {
     const lowerPart = button.closest('#lower_part');
     const inputDiv = lowerPart.querySelector('#add_comment');
@@ -166,39 +192,26 @@ function backToTop() {
     });
 }
 
-  const toggleButton = document.getElementById('mode-toggle');
-  const html = document.documentElement;
+const toggleButton = document.getElementById('mode-toggle');
+const html = document.documentElement;
 
-  // Load saved theme
-  if (localStorage.getItem('theme') === 'dark') {
-    html.classList.remove('light');
-    html.classList.add('dark');
+// Load saved theme
+if (localStorage.getItem('theme') === 'dark') {
+  html.classList.replace('light', 'dark');
+}
+
+toggleButton.addEventListener('click', () => {
+  if (html.classList.contains('light')) {
+    html.classList.replace('light', 'dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.classList.replace('dark', 'light');
+    localStorage.setItem('theme', 'light');
   }
-
-  toggleButton.addEventListener('click', () => {
-    if (html.classList.contains('light')) {
-      html.classList.replace('light', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      html.classList.replace('dark', 'light');
-      localStorage.setItem('theme', 'light');
-    }
-  });
+});
 
 
-  // Open story modal
-  document.querySelectorAll('#create_story a').forEach(el => {
-    el.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('storyModal').style.display = 'flex';
-    });
-  });
-
-  function closeStoryModal() {
-    document.getElementById('storyModal').style.display = 'none';
-  }
-
-//create new story
+// Open story modal
 document.querySelectorAll('#create_story a').forEach(el => {
   el.addEventListener('click', function(e) {
     e.preventDefault();
@@ -206,6 +219,11 @@ document.querySelectorAll('#create_story a').forEach(el => {
   });
 });
 
+function closeStoryModal() {
+  document.getElementById('storyModal').style.display = 'none';
+}
+
+//create new story
 document.getElementById('storyForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -221,6 +239,19 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
   const postList = document.getElementById('main_content');
   const li = document.createElement('li');
   li.className = 'post_item';
+
+  if(text.trim() != "") {
+    li.className += " Text";
+  }
+
+  if (file) {
+    if (file.type.startsWith("image/")) {
+        li.classList += " Image";
+    } else if (file.type.startsWith("video/")) {
+        li.classList += " Video";
+    }
+  }
+
 
   const reader = new FileReader();
   reader.onload = function(e) {
@@ -262,12 +293,27 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
                             <p>${text}</p>
                         </div>
 
-                        ${file ? `
-                          <div id="image">
-                            <img src=${e.target.result}>
-                        </div>` 
-                          : 
-                          ``
+                        ${file ? (() => {
+                            const fileType = file.type;
+                            if (fileType.startsWith("image/")) {
+                                return `
+                                <div id="image">
+                                    <img src="${e.target.result}" alt="Uploaded image">
+                                </div>`;
+                            } else if (fileType.startsWith("video/")) {
+                                return `
+                                <div id="video">
+                                    <video autoplay loop muted playsinline width="100%">
+                                    <source src="${e.target.result}" type="${fileType}">
+                                    Your browser does not support the video tag.
+                                    </video>
+                                </div>`;
+                            } else {
+                                return ``;
+                            }
+                            })()
+                            :
+                            ``
                         }
 
                         <div id="lower_part">
@@ -314,6 +360,7 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
     `;
 
     postList.appendChild(li);
+    alert("Post Added!");
     closeStoryModal();
     document.getElementById('storyForm').reset();
   };
