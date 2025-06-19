@@ -14,7 +14,8 @@
             <h3>Create a Story</h3>
             <form id="storyForm">
                 <textarea id="storyText" placeholder="Write your story..." style="width:100%;height:80px;"></textarea>
-                <input type="file" id="storyImageInput" accept="image/*">
+                <span>Image or Video</span>
+                <input type="file" id="storyImageInput" accept="image/*,video/*">
                 <button type="submit">Add Story</button>
                 <button type="button" onclick="closeStoryModal()">Cancel</button>
             </form>
@@ -27,6 +28,18 @@
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#666666"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg></a>
                     <input type="text" placeholder="Search Facebook" id="search_input" onkeyup="search()">
                 </div>
+                <div id="filterContainer">
+                    
+                    <button id="filterButton" onclick="toggleFilterMenu()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="m276-528 204-336 204 336H276ZM696-96q-70 0-119-49t-49-119q0-70 49-119t119-49q70 0 119 49t49 119q0 70-49 119T696-96Zm-552-24v-288h288v288H144Zm551.77-48Q736-168 764-195.77q28-27.78 28-68Q792-304 764.23-332q-27.78-28-68-28Q656-360 628-332.23q-28 27.78-28 68Q600-224 627.77-196q27.78 28 68 28ZM216-192h144v-144H216v144Zm188-408h152l-76-125-76 125Zm76 0ZM360-336Zm331 67Z"/></svg>                    </button>
+                    <ul id="dropdownFilterMenu">
+                        <li class="menu-item active" onclick="selectFilter('All', this)">All</li>
+                        <li class="menu-item" onclick="selectFilter('Image', this)">Image</li>
+                        <li class="menu-item" onclick="selectFilter('Video', this)">Video</li>
+                        <li class="menu-item" onclick="selectFilter('Text', this)">Text</li>
+                    </ul>
+                </div>
+
             </div>
             <div id="middle">
                 <div id="home">
@@ -227,7 +240,7 @@
                     </a>
                 </div>
             </li>
-            <li class="post_item">
+            <li class="post_item Image Text">
                 <div class="post">
                     <div>
                         <div id="upper_part">
@@ -313,7 +326,7 @@
                     </div>
                 </div>
             </li>
-            <li class="post_item">
+            <li class="post_item Video Text">
                 <div class="post">
                     <div>
                         <div id="upper_part">
@@ -350,8 +363,11 @@
                             <p>Just unveiled: the world’s first AI laptop that runs entirely on neural edge processing. Thoughts?</p>
                         </div>
 
-                        <div id="image">
-                            <img src="https://thumbs.dreamstime.com/b/detailed-close-up-cutting-edge-solid-state-drive-highlighting-complex-circuitry-vibrant-glowing-lights-indicative-314319939.jpg">
+                        <div id="video">
+                            <video autoplay loop muted playsinline>
+                                <source src="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_large.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
 
                         <div id="lower_part">
@@ -396,7 +412,7 @@
                     </div>
                 </div>
             </li>
-            <li class="post_item">
+            <li class="post_item Image Text">
                 <div class="post">
                     <div>
                         <div id="upper_part">
@@ -479,7 +495,7 @@
                     </div>
                 </div>
             </li>
-            <li class="post_item">
+            <li class="post_item Image Text">
                 <div class="post">
                     <div>
                         <div id="upper_part">
@@ -564,7 +580,7 @@
                     </div>
                 </div>
             </li>
-            <li class="post_item">
+            <li class="post_item Text">
                 <div class="post">
                     <div>
                         <div id="upper_part">
@@ -599,10 +615,6 @@
                       
                         <div id="text">
                             <p>Scientists discover a bacteria that breaks down plastic 10x faster. Could this be the answer to ocean pollution?</p>
-                        </div>
-
-                        <div id="image">
-                            <img src="https://thumbs.dreamstime.com/b/brightly-colored-patterns-appear-as-microscope-analyzes-samples-glass-slide-lab-ai-generated-examining-vibrant-under-355964920.jpg">
                         </div>
 
                         <div id="lower_part">
@@ -647,7 +659,6 @@
                     </div>
                 </div>
             </li>
-
         </ul>
 
         <div id="new_message">
@@ -659,19 +670,6 @@
 
 
         <button onclick="backToTop()" id="back_to_top_button"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M444-192v-438L243-429l-51-51 288-288 288 288-51 51-201-201v438h-72Z"/></svg></button>
-    
-        <!-- Create Story Modal -->
-        <div id="storyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-        <div style="background-color:var(--bg-color); color:var(--text-color); padding:20px; border-radius:10px; width:400px; position:relative;">
-            <h2 id="storyTitle">Create Story</h2>
-            <form id="storyForm">
-            <label id="storyLabel" for="storyText"><b>What's on your mind?</b></label><br>
-            <textarea id="storyText" name="storyText" rows="4" style="width:100%; margin:10px 0;"></textarea><br>
-            <button id="postButton" type="submit" style="margin-right:10px;">Post</button>
-            <button id="cancelButton" type="button" onclick="closeStoryModal()">Cancel</button>
-            </form>
-        </div>
-        </div>
 
     </body>
 
