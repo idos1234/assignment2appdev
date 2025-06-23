@@ -1,3 +1,5 @@
+//Maor-Shopen-333035087 Ido-Suliman-332883958
+
 function validateEmail(email){
   return email.match(
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -104,6 +106,12 @@ function search() {
     }
 }
 
+function showSnackBarMessage(message) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = message;
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
 
 //filter menu
 function toggleFilterMenu() {
@@ -232,11 +240,12 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
   const file = fileInput.files[0];
 
   if (text.trim() == "" && file == undefined) {
-    alert("Please write something or upload an image.");
+    showSnackBarMessage("Please write something or upload an image.");
     return;
   }
 
   const postList = document.getElementById('main_content');
+  const firstItem = postList.querySelector(".post_item");
   const li = document.createElement('li');
   li.className = 'post_item';
 
@@ -360,9 +369,14 @@ document.getElementById('storyForm').addEventListener('submit', function(e) {
 
     `;
 
-    postList.appendChild(li);
-    alert("Post Added!");
+
+    postList.insertBefore(li, firstItem);
+    showSnackBarMessage("Post Added!");
     closeStoryModal();
+    li.classList.add("pop");
+    setTimeout(() => {
+        li.classList.remove("pop");
+    }, 300);
     document.getElementById('storyForm').reset();
   };
 
@@ -385,12 +399,11 @@ function closeShareModal() {
 function sharePost() {
   const shareText = document.getElementById('shareText').value;
   if (!shareText.trim()) {
-    alert("You didn't write anything to share!");
+    showSnackBarMessage("You didn't write anything to share!");
     return;
   }
 
   // Just simulate share feedback
-  alert("Share posted: " + shareText);
   document.getElementById('shareText').value = '';
   closeShareModal();
 }
